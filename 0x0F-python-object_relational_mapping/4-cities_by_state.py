@@ -5,13 +5,12 @@ import sys
 
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    cur = db.cursor()
-    cur.execute("""SELECT cities.id, cities.name, states.name FROM
-                cities INNER JOIN states ON states.id=cities.state_id""")
-    rows = cur.fetchall()
+    db = MySQLdb.connect(host = 'localhost', user = sys.argv[1], password = sys.argv[2], db = sys.argv[3])
+    cursor = db.cursor()
+    query = "SELECT * FROM cities ORDER BY cities.id ASC"
+    cursor.execute(query)
+    rows = cursor.fetchall()
     for row in rows:
         print(row)
-    cur.close()
+    cursor.close()
     db.close()
